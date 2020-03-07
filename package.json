@@ -1,0 +1,46 @@
+{
+  "name": "@japan-d2/schema-api-endpoint",
+  "version": "0.0.1",
+  "description": "API endpoint specification based on @japan-d2/schema",
+  "main": "lib/index.js",
+  "type": "lib/index.d.ts",
+  "scripts": {
+    "test": "jest",
+    "build": "tsc -p tsconfig.build.json"
+  },
+  "files": [
+    "lib"
+  ],
+  "keywords": [
+    "api"
+  ],
+  "author": "AOKI Yuto <yuto.aoki@japan-d2.com> (https://japan-d2.com)",
+  "homepage": "https://github.com/japan-d2/js-schema-api-endpoint",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/japan-d2/js-schema-api-endpoint.git"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=10.4.0"
+  },
+  "dependencies": {
+    "@japan-d2/schema": "0.0.11"
+  },
+  "devDependencies": {
+    "@types/jest": "^25.1.2",
+    "@types/node": "^13.7.1",
+    "@typescript-eslint/eslint-plugin": "^2.19.2",
+    "@typescript-eslint/parser": "^2.19.2",
+    "eslint": "^6.8.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "jest": "^25.1.0",
+    "ts-jest": "^25.2.0",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.7.5"
+  }
+}
