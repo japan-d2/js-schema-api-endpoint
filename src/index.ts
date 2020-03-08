@@ -1,15 +1,15 @@
 import { defineSchema } from '@japan-d2/schema'
-import { ValidationContext } from '@japan-d2/schema/lib/interfaces'
+import { SchemaDefinition } from '@japan-d2/schema/lib/interfaces'
 
 export interface EndpointSchemaRequestInput <Q = unknown, B = unknown, H = unknown> {
-  query?: (schema: ValidationContext<{}>) => ValidationContext<Q>;
-  body?: (schema: ValidationContext<{}>) => ValidationContext<B>;
-  headers?: (schema: ValidationContext<{}>) => ValidationContext<H>;
+  query?: (schema: SchemaDefinition<{}>) => SchemaDefinition<Q>;
+  body?: (schema: SchemaDefinition<{}>) => SchemaDefinition<B>;
+  headers?: (schema: SchemaDefinition<{}>) => SchemaDefinition<H>;
 }
 
 export interface EndpointSchemaResponseInput <B = unknown, H = unknown> {
-  body?: (schema: ValidationContext<{}>) => ValidationContext<B>;
-  headers?: (schema: ValidationContext<{}>) => ValidationContext<H>;
+  body?: (schema: SchemaDefinition<{}>) => SchemaDefinition<B>;
+  headers?: (schema: SchemaDefinition<{}>) => SchemaDefinition<H>;
 }
 
 export interface EndpointSchemaInput <
@@ -25,8 +25,8 @@ export interface EndpointSchemaInput <
 export interface EndpointSchema <T, U> {
   summary?: string;
   description?: string;
-  request: ValidationContext<T>;
-  response: ValidationContext<U>;
+  request: SchemaDefinition<T>;
+  response: SchemaDefinition<U>;
 }
 
 export interface EndpointRequest <Q, B, H> {
