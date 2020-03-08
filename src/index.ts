@@ -12,6 +12,10 @@ export interface EndpointSchemaResponseInput <B = unknown, H = unknown> {
   headers?: (schema: SchemaDefinition<{}>) => SchemaDefinition<H>;
 }
 
+type Filter<F, T> = Pick<T, ({
+  [K in keyof T]: T[K] extends F ? K : never
+})[keyof T]>;
+
 export interface EndpointSchemaInput <
   RequestQuery, RequestBody, RequestHeaders,
   ResponseBody, ResponseHeaders,
@@ -29,13 +33,13 @@ export interface EndpointSchema <T, U> {
   response: SchemaDefinition<U>;
 }
 
-export interface EndpointRequest <Q, B, H> {
+export type EndpointRequest <Q, B, H> = Filter<object, {
   query: Q;
   body: B;
   headers: H;
-}
+}>
 
-export interface EndpointResponse <B, H> {
+export type EndpointResponse <B, H> = {
   body: B;
   headers?: H;
 }
