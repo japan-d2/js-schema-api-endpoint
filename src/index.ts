@@ -58,7 +58,7 @@ export interface KeyNameMap {
 
 export const defaultKeyNameMap: KeyNameMap = {
   request: {
-    query: 'queryStringParameters',
+    query: 'query',
     body: 'body',
     headers: 'headers'
   },

@@ -21,7 +21,7 @@ it('definition', () => {
   expect(schema.request.toJSONSchema()).toStrictEqual({
     type: 'object',
     properties: {
-      queryStringParameters: {
+      query: {
         type: 'object',
         properties: { q: { type: 'string' } },
         required: ['q'],
@@ -40,7 +40,7 @@ it('definition', () => {
         additionalProperties: true
       }
     },
-    required: ['queryStringParameters', 'body', 'headers']
+    required: ['query', 'body', 'headers']
   })
   expect(schema.response.toJSONSchema()).toStrictEqual({
     type: 'object',
