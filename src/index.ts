@@ -44,7 +44,7 @@ export type EndpointResponse <B, H> = {
   headers?: H;
 }
 
-interface KeyNameMap {
+export interface KeyNameMap {
   request: {
     query: string;
     body: string;
@@ -56,7 +56,7 @@ interface KeyNameMap {
   };
 }
 
-const defaultKeyNameMap: KeyNameMap = {
+export const defaultKeyNameMap: KeyNameMap = {
   request: {
     query: 'queryStringParameters',
     body: 'body',
