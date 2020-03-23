@@ -58,7 +58,7 @@ export type EndpointRequest<Q, B, H> = Filter<
 
 export type EndpointResponse<B, H> = {
   body: B;
-  headers?: H;
+  headers: H;
 }
 
 export interface KeyNameMap {
