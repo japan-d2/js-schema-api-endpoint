@@ -40,7 +40,7 @@ export interface EndpointSchemaInput<
   response?: EndpointSchemaResponseInput<ResponseBody, ResponseHeaders>;
 }
 
-export interface EndpointSchema<T, U> {
+export type EndpointSchema<T, U> = {
   summary?: string;
   description?: string;
   request: SchemaDefinition<T>;
@@ -56,10 +56,12 @@ export type EndpointRequest<Q, B, H> = Filter<
   }
 >
 
-export type EndpointResponse<B, H> = {
-  body: B;
-  headers: H;
-}
+export type EndpointResponse<B, H> = (
+  B extends {} ? { body: B } : {}
+) & (
+  (H extends {} ? { headers: H } : {})
+  & { headers?: { [key: string]: string } }
+)
 
 export interface KeyNameMap {
   request: {

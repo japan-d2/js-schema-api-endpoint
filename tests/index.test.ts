@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { endpointSchema, endpointSchemaFactory } from '../src/index'
+import { Pure } from '@japan-d2/schema'
 
 it('definition', () => {
   const schema = endpointSchema({
@@ -60,6 +61,36 @@ it('definition', () => {
     },
     required: ['body', 'headers']
   })
+})
+
+it('definition without response headers', () => {
+  const schema = endpointSchema({
+    summary: 'test',
+    description: 'this is test endpoint',
+    request: {},
+    response: {
+      body: d => d.string('b')
+    }
+  })
+
+  const responseWithoutHeaders: Pure<typeof schema['response']> = {
+    body: {
+      b: ''
+    }
+  }
+
+  expect(responseWithoutHeaders).toBeTruthy()
+
+  const responseWithAdditionalHeaders: Pure<typeof schema['response']> = {
+    body: {
+      b: ''
+    },
+    headers: {
+      'cache-control': 'no-cache'
+    }
+  }
+
+  expect(responseWithAdditionalHeaders).toBeTruthy()
 })
 
 it('definition with custom key map', () => {
