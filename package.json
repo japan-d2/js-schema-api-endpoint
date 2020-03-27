@@ -1,6 +1,6 @@
 {
   "name": "@japan-d2/schema-api-endpoint",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "API endpoint specification based on @japan-d2/schema",
   "main": "lib/index.js",
   "type": "lib/index.d.ts",
@@ -25,7 +25,7 @@
     "node": ">=10.4.0"
   },
   "dependencies": {
-    "@japan-d2/schema": "^0.0.16"
+    "@japan-d2/schema": "^0.0.17"
   },
   "devDependencies": {
     "@types/jest": "^25.1.2",
