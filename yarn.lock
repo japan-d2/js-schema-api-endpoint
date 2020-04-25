@@ -280,7 +280,7 @@
   resolved "https://registry.yarnpkg.com/@istanbuljs/schema/-/schema-0.1.2.tgz#26520bf09abe4a5644cd5414e37125a8954241dd"
   integrity sha512-tsAQNx32a8CoFhjhijUIhI4kccIAgmGhy8LZMZgGfmXcpMbPRUqn5LWmgRttILi6yeGmBJd2xsPkFMs0PzgPCw==
 
-"@japan-d2/schema@0.0.19":
+"@japan-d2/schema@latest":
   version "0.0.19"
   resolved "https://registry.yarnpkg.com/@japan-d2/schema/-/schema-0.0.19.tgz#3f56d2322d8786765462347bc27c102ed4b9fac4"
   integrity sha512-0TvhuTkUjWoQfCqgTSLAMpFX+byaSrRBibEX29wS++m1qRV1tFT9WUD0Dr6iFuoYEZa1wa6eB9NJ7oZCmlZV1g==
