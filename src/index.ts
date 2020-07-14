@@ -1,21 +1,19 @@
 import { defineSchema } from '@japan-d2/schema'
 import { SchemaDefinition } from '@japan-d2/schema/lib/interfaces'
 
-type AnyObject = Record<string, unknown>
-
 export interface EndpointSchemaRequestInput<
   Q = unknown,
   B = unknown,
   H = unknown
 > {
-  query?: (schema: SchemaDefinition<AnyObject>) => SchemaDefinition<Q>;
-  body?: (schema: SchemaDefinition<AnyObject>) => SchemaDefinition<B>;
-  headers?: (schema: SchemaDefinition<AnyObject>) => SchemaDefinition<H>;
+  query?: (schema: SchemaDefinition<unknown>) => SchemaDefinition<Q>;
+  body?: (schema: SchemaDefinition<unknown>) => SchemaDefinition<B>;
+  headers?: (schema: SchemaDefinition<unknown>) => SchemaDefinition<H>;
 }
 
 export interface EndpointSchemaResponseInput<B = unknown, H = unknown> {
-  body?: (schema: SchemaDefinition<AnyObject>) => SchemaDefinition<B>;
-  headers?: (schema: SchemaDefinition<AnyObject>) => SchemaDefinition<H>;
+  body?: (schema: SchemaDefinition<unknown>) => SchemaDefinition<B>;
+  headers?: (schema: SchemaDefinition<unknown>) => SchemaDefinition<H>;
 }
 
 type Filter<F, T> = Pick<
@@ -50,7 +48,7 @@ export type EndpointSchema<T, U> = {
 }
 
 export type EndpointRequest<Q, B, H> = Filter<
-  AnyObject,
+  unknown,
   {
     query: Q;
     body: B;
@@ -59,9 +57,9 @@ export type EndpointRequest<Q, B, H> = Filter<
 >
 
 export type EndpointResponse<B, H> = (
-  B extends AnyObject ? { body: B } : AnyObject
+  B extends Record<string, unknown> ? { body: B } : unknown
 ) & (
-  (H extends AnyObject ? { headers: H } : AnyObject)
+  (H extends Record<string, unknown> ? { headers: H } : unknown)
   & { headers?: { [key: string]: string } }
 )
 
