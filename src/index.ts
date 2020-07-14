@@ -48,7 +48,7 @@ export type EndpointSchema<T, U> = {
 }
 
 export type EndpointRequest<Q, B, H> = Filter<
-  unknown,
+  Record<string, unknown>,
   {
     query: Q;
     body: B;
