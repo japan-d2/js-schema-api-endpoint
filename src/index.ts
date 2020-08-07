@@ -190,3 +190,28 @@ export function endpointSchemaFactory (baseOptions: Options) {
 }
 
 export const endpointSchema = endpointSchemaFactory(defaultOptions)
+
+export type ResponseBody<T> = T extends EndpointSchema<
+  unknown,
+  EndpointResponse<infer B, unknown>
+> ? B : never
+
+export type ResponseHeaders<T> = T extends EndpointSchema<
+  unknown,
+  EndpointResponse<unknown, infer H>
+> ? H : never
+
+export type RequestQuery<T> = T extends EndpointSchema<
+  EndpointRequest<infer Q, unknown, unknown>,
+  unknown
+> ? Q : never
+
+export type RequestBody<T> = T extends EndpointSchema<
+  EndpointRequest<unknown, infer B, unknown>,
+  unknown
+> ? B : never
+
+export type RequestHeaders<T> = T extends EndpointSchema<
+  EndpointRequest<unknown, unknown, infer H>,
+  unknown
+> ? H : never
