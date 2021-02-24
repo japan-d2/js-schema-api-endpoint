@@ -1,4 +1,4 @@
-import { defineObjectSchema, defineSchema, field } from '@japan-d2/schema'
+import { defineObjectSchema, defineSchema } from '@japan-d2/schema'
 import { SchemaDefinition, ObjectField } from '@japan-d2/schema/lib/interfaces'
 
 export interface EndpointSchemaRequestInput<
@@ -229,23 +229,34 @@ export function endpointSchemaFactoryV2 (baseOptions: Options) {
     EndpointRequest<RequestQuery, RequestBody, RequestHeaders>,
     EndpointResponse<ResponseBody, ResponseHeaders>
   > {
+    const request: Record<string, ObjectField<RequestQuery | RequestBody | RequestHeaders>> = {}
+    const response: Record<string, ObjectField<ResponseBody | ResponseHeaders>> = {}
+
+    if (input.request?.query) {
+      request[options.keyNameMap.request.query] = input.request.query.allowAdditionalProperties()
+    }
+
+    if (input.request?.body) {
+      request[options.keyNameMap.request.body] = input.request.body.denyAdditionalProperties()
+    }
+
+    if (input.request?.headers) {
+      request[options.keyNameMap.request.headers] = input.request.headers.allowAdditionalProperties()
+    }
+
+    if (input.response?.body) {
+      response[options.keyNameMap.response.body] = input.response.body.denyAdditionalProperties()
+    }
+
+    if (input.response?.headers) {
+      response[options.keyNameMap.response.headers] = input.response.headers.denyAdditionalProperties()
+    }
+
     return {
       summary: input.summary,
       description: input.description,
-      request: defineObjectSchema({
-        [options.keyNameMap.request.query]: (input.request?.query ?? field.object({}, {}))
-          .allowAdditionalProperties(),
-        [options.keyNameMap.request.body]: (input.request?.body ?? field.object({}, {}))
-          .denyAdditionalProperties(),
-        [options.keyNameMap.request.headers]: (input.request?.headers ?? field.object({}, {}))
-          .allowAdditionalProperties()
-      } as any),
-      response: defineObjectSchema({
-        [options.keyNameMap.response.body]: (input.response?.body ?? field.object({}, {}))
-          .denyAdditionalProperties(),
-        [options.keyNameMap.response.headers]: (input.response?.headers ?? field.object({}, {}))
-          .denyAdditionalProperties()
-      } as any)
+      request: defineObjectSchema(request),
+      response: defineObjectSchema(response)
     } as EndpointSchema<
       EndpointRequest<RequestQuery, RequestBody, RequestHeaders>,
       EndpointResponse<ResponseBody, ResponseHeaders>
