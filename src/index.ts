@@ -1,5 +1,5 @@
-import { defineSchema } from '@japan-d2/schema'
-import { SchemaDefinition } from '@japan-d2/schema/lib/interfaces'
+import { defineObjectSchema, defineSchema, field } from '@japan-d2/schema'
+import { SchemaDefinition, ObjectField } from '@japan-d2/schema/lib/interfaces'
 
 export interface EndpointSchemaRequestInput<
   Q = unknown,
@@ -38,6 +38,26 @@ export interface EndpointSchemaInput<
     RequestHeaders
   >;
   response?: EndpointSchemaResponseInput<ResponseBody, ResponseHeaders>;
+}
+
+export interface EndpointSchemaInputV2<
+  RequestQuery,
+  RequestBody,
+  RequestHeaders,
+  ResponseBody,
+  ResponseHeaders
+> {
+  summary?: string;
+  description?: string;
+  request?: {
+    query?: ObjectField<RequestQuery>,
+    body?: ObjectField<RequestBody>,
+    headers?: ObjectField<RequestHeaders>,
+  }
+  response?: {
+    body?: ObjectField<ResponseBody>,
+    headers?: ObjectField<ResponseHeaders>,
+  };
 }
 
 export type EndpointSchema<T, U> = {
@@ -182,6 +202,50 @@ export function endpointSchemaFactory (baseOptions: Options) {
       description: input.description,
       request,
       response
+    } as EndpointSchema<
+      EndpointRequest<RequestQuery, RequestBody, RequestHeaders>,
+      EndpointResponse<ResponseBody, ResponseHeaders>
+    >
+  }
+}
+
+export function endpointSchemaFactoryV2 (baseOptions: Options) {
+  return function endpointSchema<
+    RequestQuery,
+    RequestBody,
+    RequestHeaders,
+    ResponseBody,
+    ResponseHeaders
+  > (
+    input: EndpointSchemaInputV2<
+      RequestQuery,
+      RequestBody,
+      RequestHeaders,
+      ResponseBody,
+      ResponseHeaders
+    >,
+    options = baseOptions
+  ): EndpointSchema<
+    EndpointRequest<RequestQuery, RequestBody, RequestHeaders>,
+    EndpointResponse<ResponseBody, ResponseHeaders>
+  > {
+    return {
+      summary: input.summary,
+      description: input.description,
+      request: defineObjectSchema({
+        [options.keyNameMap.request.query]: (input.request?.query ?? field.object({}, {}))
+          .allowAdditionalProperties(),
+        [options.keyNameMap.request.body]: (input.request?.body ?? field.object({}, {}))
+          .denyAdditionalProperties(),
+        [options.keyNameMap.request.headers]: (input.request?.headers ?? field.object({}, {}))
+          .allowAdditionalProperties()
+      } as any),
+      response: defineObjectSchema({
+        [options.keyNameMap.response.body]: (input.response?.body ?? field.object({}, {}))
+          .denyAdditionalProperties(),
+        [options.keyNameMap.response.headers]: (input.response?.headers ?? field.object({}, {}))
+          .denyAdditionalProperties()
+      } as any)
     } as EndpointSchema<
       EndpointRequest<RequestQuery, RequestBody, RequestHeaders>,
       EndpointResponse<ResponseBody, ResponseHeaders>
