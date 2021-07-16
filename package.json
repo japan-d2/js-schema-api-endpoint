@@ -1,9 +1,9 @@
 {
   "name": "@japan-d2/schema-api-endpoint",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "description": "API endpoint specification based on @japan-d2/schema",
   "main": "lib/index.js",
-  "type": "lib/index.d.ts",
+  "typings": "lib/index.d.ts",
   "scripts": {
     "test": "jest",
     "build": "tsc -p tsconfig.build.json"
@@ -25,7 +25,7 @@
     "node": ">=10.4.0"
   },
   "dependencies": {
-    "@japan-d2/schema": "^0.10.0"
+    "@japan-d2/schema": "^0.10.1"
   },
   "devDependencies": {
     "@types/jest": "^26.0.15",
